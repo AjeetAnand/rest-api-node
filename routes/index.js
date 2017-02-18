@@ -6,6 +6,7 @@ const path = require('path');
 
 /*Controllers*/
 const users = require('./users');
+const product = require('./product');
 const error = require('./error');
 
 /* GET home page. */
@@ -17,7 +18,7 @@ router.get('/', (req, res, next) => {
 router.get('/users', users.get, error);
 
 router.post('/login', users.validate, users.login, error);
-
+router.get('/product', product.get, error);
 module.exports = router;
 
 
