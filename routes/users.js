@@ -1,4 +1,5 @@
 "use strict";
+const jwt = require('jsonwebtoken');
 
 var userModel = require('../model/users');
 
@@ -27,39 +28,7 @@ var users = {
 			}
 		});
 	},
-
-	validate: (req, res, next) => {
-		if (!req.body.email) {
-			return next(new Error('Email is required'));
-		}
-		if (!req.body.password) {
-			return next(new Error('Password is required'));
-		}
-		next();
-	},
-
-	login: (req, res, next) => {
-
-		let options = {};
-
-		['email', 'password'].forEach((elem, index) => {
-			if (req.body[elem]) {
-				options[elem] = req.body[elem];
-			}
-		});
-
-		userModel.get(options, (err, data) => {
-			if (!err){
-				if (data[0] && data[0].password == req.body.password) {
-					res.json(data);
-				} else {
-					res.status(500).json({error: 'Wrong password'});
-				}
-			} else {
-				next(err);
-			}
-		});
-	},
+	
 };
 
 module.exports = users;

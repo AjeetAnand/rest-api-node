@@ -3,9 +3,9 @@ const router = express.Router();
 
 const path = require('path');
 
-
 /*Controllers*/
 const users = require('./users');
+const auth = require('./auth');
 const error = require('./error');
 
 /* GET home page. */
@@ -14,9 +14,9 @@ router.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname + '/../views/index.html'));
 });
 
-router.get('/users', users.get, error);
+router.get('/users', auth.checkAuth, users.get, error);
 
-router.post('/login', users.validate, users.login, error);
+router.post('/login', auth.validate, auth.login, error);
 
 module.exports = router;
 
